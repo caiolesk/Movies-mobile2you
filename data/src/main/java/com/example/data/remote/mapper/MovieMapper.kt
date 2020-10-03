@@ -17,7 +17,8 @@ object MovieMapper {
         poster_path = payload.poster_path,
         release_date = payload.release_date,
         vote_count = payload.vote_count,
-        vote_average = payload.vote_average
+        vote_average = payload.vote_average,
+        genre_ids = payload.genre_ids
     )
 
 }

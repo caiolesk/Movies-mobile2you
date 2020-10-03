@@ -1,5 +1,6 @@
 package com.example.data.remote.api
 
+import com.example.data.remote.model.GenresListPayload
 import com.example.data.remote.model.MoviePayload
 import com.example.data.remote.model.MoviesPayload
 import io.reactivex.Observable
@@ -14,4 +15,7 @@ interface MovieApi {
 
     @GET("movie/{movie_id}/similar")
     fun fetchMoviesSimilar(@Path("movie_id") movieId: Int, @Query("api_key") apiKey: String ): Observable<MoviesPayload>
+
+    @GET("genre/movie/list")
+    fun fetchGenresList(@Query("api_key") apiKey: String ): Observable<GenresListPayload>
 }

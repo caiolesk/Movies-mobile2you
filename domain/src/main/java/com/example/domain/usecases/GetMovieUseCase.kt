@@ -1,5 +1,6 @@
 package com.example.domain.usecases
 
+import com.example.domain.entities.Genres
 import com.example.domain.entities.Movie
 import com.example.domain.repository.MovieRepository
 import io.reactivex.Observable
@@ -16,6 +17,11 @@ class GetMovieUseCase (
 
     fun fetchMoviesSimilar(apiKey: String, movieId: Int): Observable<List<Movie>>{
         return repository.fetchMoviesSimilar(apiKey,movieId)
+            .subscribeOn(scheduler)
+    }
+
+    fun fetchGenresList(apiKey: String): Observable<List<Genres>>{
+        return repository.fetchGenresList(apiKey)
             .subscribeOn(scheduler)
     }
 }
