@@ -9,5 +9,8 @@ data class Movie (
     var poster_path: String?,
     var release_date: String?,
     var vote_count: Int?,
-    var vote_average: Number?
-)
+    var vote_average: Number?,
+    var genre_ids: ArrayList<Int>?
+){
+    var genre_names: List<String>? = null
+}

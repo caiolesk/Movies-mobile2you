@@ -1,6 +1,7 @@
 package com.example.data
 
 import com.example.data.remote.source.MovieDataSource
+import com.example.domain.entities.Genres
 import com.example.domain.entities.Movie
 import com.example.domain.repository.MovieRepository
 import io.reactivex.Observable
@@ -18,6 +19,13 @@ class MovieRepositoryImpl (
 
     override fun fetchMoviesSimilar(apiKey: String, movieId: Int): Observable<List<Movie>> {
         return remoteDataSource.fetchMoviesSimilar(apiKey, movieId)
+            .flatMap { listFav ->
+                Observable.just(listFav)
+            }
+    }
+
+    override fun fetchGenresList(apiKey: String): Observable<List<Genres>> {
+        return remoteDataSource.fetchGenresList(apiKey)
             .flatMap { listFav ->
                 Observable.just(listFav)
             }

@@ -1,6 +1,7 @@
 package com.example.movies_mobile2you.viewmodel
 
 import androidx.lifecycle.MutableLiveData
+import com.example.domain.entities.Genres
 import com.example.domain.entities.Movie
 import com.example.domain.usecases.GetMovieUseCase
 import io.reactivex.Scheduler
@@ -18,6 +19,10 @@ class MainViewModel(
     }
 
     val stateMoviesSimilar = MutableLiveData<ViewState<List<Movie>>>().apply {
+        value = ViewState.Loading
+    }
+
+    val stateGenres = MutableLiveData<ViewState<List<Genres>>>().apply {
         value = ViewState.Loading
     }
 
@@ -42,6 +47,20 @@ class MainViewModel(
             .subscribe(
                 {
                     stateMoviesSimilar.postValue(it)
+                },
+                {
+
+                }
+            )
+    }
+
+    fun fetchGenresList(apiKey: String){
+        disposable += useCase.fetchGenresList(apiKey)
+            .compose(StateMachineObserver())
+            .observeOn(uiScheduler)
+            .subscribe(
+                {
+                    stateGenres.postValue(it)
                 },
                 {
 

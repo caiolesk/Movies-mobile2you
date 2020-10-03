@@ -15,5 +15,6 @@ class MoviePayload(
     @SerializedName("poster_path")var poster_path: String?,
     @SerializedName("release_date")var release_date: String?,
     @SerializedName("vote_count")var vote_count: Int?,
-    @SerializedName("vote_average")var vote_average: Number?
+    @SerializedName("vote_average")var vote_average: Number?,
+    @SerializedName("genre_ids")var genre_ids: ArrayList<Int>?
 )

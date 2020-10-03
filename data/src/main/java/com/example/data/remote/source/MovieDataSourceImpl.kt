@@ -1,7 +1,9 @@
 package com.example.data.remote.source
 
 import com.example.data.remote.api.MovieApi
+import com.example.data.remote.mapper.GenresMapper
 import com.example.data.remote.mapper.MovieMapper
+import com.example.domain.entities.Genres
 import com.example.domain.entities.Movie
 import io.reactivex.Observable
 
@@ -17,6 +19,11 @@ class MovieDataSourceImpl (
     override fun fetchMoviesSimilar(apiKey: String, movieId: Int): Observable<List<Movie>> {
         return movieApi.fetchMoviesSimilar(movieId, apiKey)
             .map { MovieMapper.map(it) }
+    }
+
+    override fun fetchGenresList(apiKey: String): Observable<List<Genres>> {
+        return movieApi.fetchGenresList(apiKey)
+            .map { GenresMapper.map(it) }
     }
 
 }

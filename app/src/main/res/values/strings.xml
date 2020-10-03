@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Movies-mobile2you</string>
     <string name="api_key">468131cccdfc0754786fda8ed67a3fae</string>
+    <string name="text_likes">Likes</string>
+    <string name="popularity">Popularity</string>
+    <string name="url_base_image_similar">https://image.tmdb.org/t/p/w154</string>
+    <string name="url_base_image_backdrop">https://image.tmdb.org/t/p/original</string>
 </resources>
