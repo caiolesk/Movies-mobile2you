@@ -40,7 +40,7 @@ android {
 dependencies {
     implementation project(path: ':domain')
     implementation project(path: ':data')
-//    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     def dependencies = rootProject.ext.dependencies
     def testDependencies = rootProject.ext.testDependecies
