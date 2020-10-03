@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Movies-mobile2you</string>
+    <string name="api_key">468131cccdfc0754786fda8ed67a3fae</string>
 </resources>
