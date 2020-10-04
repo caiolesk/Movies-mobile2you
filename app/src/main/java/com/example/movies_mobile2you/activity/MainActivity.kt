@@ -9,10 +9,12 @@ import com.example.domain.entities.Movie
 import com.example.movies_mobile2you.R
 import com.example.movies_mobile2you.adapter.MovieAdapter
 import com.example.movies_mobile2you.databinding.ActivityMainBinding
+import com.example.movies_mobile2you.extension.visible
 import com.example.movies_mobile2you.viewmodel.MainViewModel
 import com.example.movies_mobile2you.viewmodel.ViewState
-import com.squareup.picasso.Picasso
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.contentView
 import org.jetbrains.anko.toast
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
-        binding.viewmodel = viewModel
+        binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
         setupRecyclerView()
@@ -42,16 +44,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupViewModel(){
-
         viewModel.state.observe(this, { state ->
             when(state){
                 is ViewState.Sucess ->{
                     movie = state.data
 
                     binding.movie = movie
-                    Picasso.get()
-                        .load(getString(R.string.url_base_image_backdrop) + movie?.poster_path)
-                        .into(imageMovie)
+
+                    setVisibilities(imgHeart = true,txtLike = true,imgStar = true, txtPopularity = true,chkLike = true)
 
                     viewModel.fetchGenresList(getString(R.string.api_key))
 
@@ -60,27 +60,31 @@ class MainActivity : AppCompatActivity() {
                             it
                         )
                     }
-
                 }
                 is ViewState.Loading ->{
                 }
                 is ViewState.Failed ->{
-                    toast("Failed to fetch movie, try latter").show()
+                    retrySnackBar()
                 }
             }
         })
 
-
-
         viewModel.stateMoviesSimilar.observe(this, { state ->
             when(state){
                 is ViewState.Sucess ->{
-                    var moviesSmilar = state.data
+                    var moviesSimilar = state.data
 
                     //TODO( "Link movies similar with genres to get description of them")
 //                    var test = genres?.map { d -> d.name }
+                    if(!genres.isNullOrEmpty()){
+                        moviesSimilar.forEach { movie ->
+                            var genresLinked = genres?.filter { m -> movie.genre_ids?.any { it  == m.id }!! }?.map {  c -> c.name }
 
-                    movieAdapter.movies = moviesSmilar
+                            movie.genre_names = genresLinked
+                        }
+                    }
+
+                    movieAdapter.movies = moviesSimilar
                     movieAdapter.notifyDataSetChanged()
                 }
                 is ViewState.Loading ->{
@@ -107,6 +111,24 @@ class MainActivity : AppCompatActivity() {
 
     private fun initData(){
         viewModel.fetchMovieDetails(getString(R.string.api_key),497582)
+    }
+
+    private fun retrySnackBar(){
+        contentView?.let {
+            Snackbar.make(it,R.string.texto_erro_internet_snack, Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.texto_tente_novamente) {
+                    initData()
+                }.show()
+        }
+    }
+
+    private fun setVisibilities(imgHeart: Boolean = false,txtLike: Boolean = false,imgStar: Boolean = false, txtPopularity: Boolean = false,
+                                chkLike: Boolean = false){
+        imageHeart.visible(imgHeart)
+        textLikes.visible(txtLike)
+        imageStar.visible(imgStar)
+        textPopularity.visible(txtPopularity)
+        likeIcon.visible(chkLike)
     }
 
 }

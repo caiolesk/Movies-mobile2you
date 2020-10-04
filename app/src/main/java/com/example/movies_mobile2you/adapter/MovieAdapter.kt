@@ -22,6 +22,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
                 .into(imageMovieSimilar)
             textTitleMovieSimilar.text = movie.title
             textAgeMovie.text = movie.release_date?.split("-")?.get(0) ?: ""
+            textGenres.text = movie.genre_names?.joinToString(", ")
 
         }
     }
