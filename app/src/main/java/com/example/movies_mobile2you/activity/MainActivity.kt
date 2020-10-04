@@ -74,8 +74,6 @@ class MainActivity : AppCompatActivity() {
                 is ViewState.Sucess ->{
                     var moviesSimilar = state.data
 
-                    //TODO( "Link movies similar with genres to get description of them")
-//                    var test = genres?.map { d -> d.name }
                     if(!genres.isNullOrEmpty()){
                         moviesSimilar.forEach { movie ->
                             var genresLinked = genres?.filter { m -> movie.genre_ids?.any { it  == m.id }!! }?.map {  c -> c.name }
