@@ -10,22 +10,22 @@ class MovieRepositoryImpl (
     private val remoteDataSource: MovieDataSource
 ) : MovieRepository {
 
-    override fun fetchMovieDetails(apiKey: String, movieId: Int): Observable<Movie> {
-        return remoteDataSource.fetchMovieDetails(apiKey, movieId)
+    override fun fetchMovieDetails(movieId: Int): Observable<Movie> {
+        return remoteDataSource.fetchMovieDetails(movieId)
             .flatMap { listFav ->
                 Observable.just(listFav)
             }
     }
 
-    override fun fetchMoviesSimilar(apiKey: String, movieId: Int): Observable<List<Movie>> {
-        return remoteDataSource.fetchMoviesSimilar(apiKey, movieId)
+    override fun fetchMoviesSimilar(movieId: Int): Observable<List<Movie>> {
+        return remoteDataSource.fetchMoviesSimilar(movieId)
             .flatMap { listFav ->
                 Observable.just(listFav)
             }
     }
 
-    override fun fetchGenresList(apiKey: String): Observable<List<Genres>> {
-        return remoteDataSource.fetchGenresList(apiKey)
+    override fun fetchGenresList(): Observable<List<Genres>> {
+        return remoteDataSource.fetchGenresList()
             .flatMap { listFav ->
                 Observable.just(listFav)
             }

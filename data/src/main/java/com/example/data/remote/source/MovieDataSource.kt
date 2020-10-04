@@ -6,9 +6,9 @@ import io.reactivex.Observable
 
 interface MovieDataSource {
 
-    fun fetchMovieDetails(apiKey: String, movieId: Int): Observable<Movie>
+    fun fetchMovieDetails(movieId: Int): Observable<Movie>
 
-    fun fetchMoviesSimilar(apiKey: String, movieId: Int): Observable<List<Movie>>
+    fun fetchMoviesSimilar(movieId: Int): Observable<List<Movie>>
 
-    fun fetchGenresList(apiKey: String): Observable<List<Genres>>
+    fun fetchGenresList(): Observable<List<Genres>>
 }

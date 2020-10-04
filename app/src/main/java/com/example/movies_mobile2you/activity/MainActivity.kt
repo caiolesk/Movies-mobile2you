@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupViewModel(){
-        viewModel.state.observe(this, { state ->
+        viewModel.stateMovieDetails.observe(this, { state ->
             when(state){
                 is ViewState.Sucess ->{
                     movie = state.data
@@ -53,10 +53,10 @@ class MainActivity : AppCompatActivity() {
 
                     setVisibilities(imgHeart = true,txtLike = true,imgStar = true, txtPopularity = true,chkLike = true)
 
-                    viewModel.fetchGenresList(getString(R.string.api_key))
+                    viewModel.fetchGenresList()
 
                     movie?.id?.let {
-                        viewModel.fetchMoviesSimilar(getString(R.string.api_key),
+                        viewModel.fetchMoviesSimilar(
                             it
                         )
                     }
@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initData(){
-        viewModel.fetchMovieDetails(getString(R.string.api_key),497582)
+        viewModel.fetchMovieDetails(497582)
     }
 
     private fun retrySnackBar(){

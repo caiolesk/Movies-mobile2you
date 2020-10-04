@@ -12,9 +12,7 @@ class MainViewModel(
     val uiScheduler: Scheduler
 ) : BaseViewModel() {
 
-    val retryData = MutableLiveData<Boolean>()
-
-    val state = MutableLiveData<ViewState<Movie>>().apply {
+    val stateMovieDetails = MutableLiveData<ViewState<Movie>>().apply {
         value = ViewState.Loading
     }
 
@@ -26,13 +24,13 @@ class MainViewModel(
         value = ViewState.Loading
     }
 
-    fun fetchMovieDetails(apiKey: String, movieId: Int){
-        disposable += useCase.fetchMovieDetails(apiKey, movieId)
+    fun fetchMovieDetails(movieId: Int){
+        disposable += useCase.fetchMovieDetails(movieId)
             .compose(StateMachineObserver())
             .observeOn(uiScheduler)
             .subscribe(
                 {
-                    state.postValue(it)
+                    stateMovieDetails.postValue(it)
                 },
                 {
 
@@ -40,8 +38,8 @@ class MainViewModel(
             )
     }
 
-    fun fetchMoviesSimilar(apiKey: String, movieId: Int){
-        disposable += useCase.fetchMoviesSimilar(apiKey, movieId)
+    fun fetchMoviesSimilar(movieId: Int){
+        disposable += useCase.fetchMoviesSimilar(movieId)
             .compose(StateMachineObserver())
             .observeOn(uiScheduler)
             .subscribe(
@@ -54,8 +52,8 @@ class MainViewModel(
             )
     }
 
-    fun fetchGenresList(apiKey: String){
-        disposable += useCase.fetchGenresList(apiKey)
+    fun fetchGenresList(){
+        disposable += useCase.fetchGenresList()
             .compose(StateMachineObserver())
             .observeOn(uiScheduler)
             .subscribe(
@@ -68,7 +66,4 @@ class MainViewModel(
             )
     }
 
-    fun onRetryData(){
-        retryData.postValue(true)
-    }
 }

@@ -11,19 +11,18 @@ class MovieDataSourceImpl (
     private val movieApi: MovieApi
 ) : MovieDataSource {
 
-    override fun fetchMovieDetails(apiKey: String, movieId: Int): Observable<Movie> {
-        return movieApi.fetchMovieDetails(movieId, apiKey)
+    override fun fetchMovieDetails(movieId: Int): Observable<Movie> {
+        return movieApi.fetchMovieDetails(movieId)
             .map { MovieMapper.map(it) }
     }
 
-    override fun fetchMoviesSimilar(apiKey: String, movieId: Int): Observable<List<Movie>> {
-        return movieApi.fetchMoviesSimilar(movieId, apiKey)
+    override fun fetchMoviesSimilar(movieId: Int): Observable<List<Movie>> {
+        return movieApi.fetchMoviesSimilar(movieId)
             .map { MovieMapper.map(it) }
     }
 
-    override fun fetchGenresList(apiKey: String): Observable<List<Genres>> {
-        return movieApi.fetchGenresList(apiKey)
+    override fun fetchGenresList(): Observable<List<Genres>> {
+        return movieApi.fetchGenresList()
             .map { GenresMapper.map(it) }
     }
-
 }
