@@ -5,4 +5,7 @@
     <string name="popularity">Popularity</string>
     <string name="url_base_image_similar">https://image.tmdb.org/t/p/w154</string>
     <string name="url_base_image_backdrop">https://image.tmdb.org/t/p/original</string>
+    <string name="concatenate">%1$s%2$s</string>
+    <string name="texto_erro_internet_snack">Verifique sua internet!</string>
+    <string name="texto_tente_novamente">Tente novamente</string>
 </resources>
