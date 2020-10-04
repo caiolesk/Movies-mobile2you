@@ -10,18 +10,18 @@ class GetMovieUseCase (
     private val repository: MovieRepository,
     private val scheduler: Scheduler
 ){
-    fun fetchMovieDetails(apiKey: String, movieId: Int): Observable<Movie>{
-        return repository.fetchMovieDetails(apiKey,movieId)
+    fun fetchMovieDetails(movieId: Int): Observable<Movie>{
+        return repository.fetchMovieDetails(movieId)
             .subscribeOn(scheduler)
     }
 
-    fun fetchMoviesSimilar(apiKey: String, movieId: Int): Observable<List<Movie>>{
-        return repository.fetchMoviesSimilar(apiKey,movieId)
+    fun fetchMoviesSimilar(movieId: Int): Observable<List<Movie>>{
+        return repository.fetchMoviesSimilar(movieId)
             .subscribeOn(scheduler)
     }
 
-    fun fetchGenresList(apiKey: String): Observable<List<Genres>>{
-        return repository.fetchGenresList(apiKey)
+    fun fetchGenresList(): Observable<List<Genres>>{
+        return repository.fetchGenresList()
             .subscribeOn(scheduler)
     }
 }

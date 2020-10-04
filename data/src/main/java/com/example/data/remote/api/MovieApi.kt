@@ -10,12 +10,16 @@ import retrofit2.http.Query
 
 interface MovieApi {
 
+    companion object {
+        private const val API_KEY = "468131cccdfc0754786fda8ed67a3fae"
+    }
+
     @GET("movie/{movie_id}")
-    fun fetchMovieDetails(@Path("movie_id") movieId: Int, @Query("api_key") apiKey: String): Observable<MoviePayload>
+    fun fetchMovieDetails(@Path("movie_id") movieId: Int, @Query("api_key") apiKey: String = API_KEY ): Observable<MoviePayload>
 
     @GET("movie/{movie_id}/similar")
-    fun fetchMoviesSimilar(@Path("movie_id") movieId: Int, @Query("api_key") apiKey: String ): Observable<MoviesPayload>
+    fun fetchMoviesSimilar(@Path("movie_id") movieId: Int, @Query("api_key") apiKey: String = API_KEY ): Observable<MoviesPayload>
 
     @GET("genre/movie/list")
-    fun fetchGenresList(@Query("api_key") apiKey: String ): Observable<GenresListPayload>
+    fun fetchGenresList(@Query("api_key") apiKey: String = API_KEY ): Observable<GenresListPayload>
 }
