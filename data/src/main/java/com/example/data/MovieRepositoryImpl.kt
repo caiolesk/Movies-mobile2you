@@ -5,8 +5,9 @@ import com.example.domain.entities.Genres
 import com.example.domain.entities.Movie
 import com.example.domain.repository.MovieRepository
 import io.reactivex.Observable
+import javax.inject.Inject
 
-class MovieRepositoryImpl (
+class MovieRepositoryImpl @Inject constructor(
     private val remoteDataSource: MovieDataSource
 ) : MovieRepository {
 

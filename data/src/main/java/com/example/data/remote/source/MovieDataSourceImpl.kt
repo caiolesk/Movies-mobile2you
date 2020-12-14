@@ -6,8 +6,9 @@ import com.example.data.remote.mapper.MovieMapper
 import com.example.domain.entities.Genres
 import com.example.domain.entities.Movie
 import io.reactivex.Observable
+import javax.inject.Inject
 
-class MovieDataSourceImpl (
+class MovieDataSourceImpl @Inject constructor(
     private val movieApi: MovieApi
 ) : MovieDataSource {
 

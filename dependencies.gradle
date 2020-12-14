@@ -7,10 +7,10 @@ ext {
 
     buildTools = '3.4.0-beta04'
 
-    appCompactVersion = '1.1.0'
+    appCompactVersion = '1.2.0'
     kotlinVersion = '1.3.72'
 
-    AndroidArchVersion = '1.1.1'
+    AndroidArchVersion = '2.2.0'
     databindingVersion = '3.1.4'
     lifeCycleVersion = '2.2.0'
     ktxVersion = '1.3.1'
@@ -27,9 +27,6 @@ ext {
     rxKotlinVersion = '2.4.0'
     rxAndroidVersion = '2.1.1'
 
-    //Koin
-    koinVersion = '2.0.1'
-
     //Retrofit
     retrofitVersion = '2.9.0'
 
@@ -43,46 +40,48 @@ ext {
     runnerVersion = '1.2.0'
     testing = '7.1.0'
 
-    anko_version='0.10.4'
+    anko_version = '0.10.4'
+
+    hilt_version = '2.28-alpha'
 
     dependencies = [
-            kotlin                : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
+            kotlin               : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
 
-            appCompact            : "androidx.appcompat:appcompat:$appCompactVersion",
-            constraintlayout      : "androidx.constraintlayout:constraintlayout:$constrainVersion",
-            cardView              : "androidx.cardview:cardview:$cardViewVersion",
-            recyclerView          : "androidx.recyclerview:recyclerview:$recyclerViewVersion",
-            materialDesign        : "com.google.android.material:material:$materialDesign",
-            picasso               : "com.squareup.picasso:picasso:$picasso",
-            fadingedgelayout      : "com.github.bosphere.android-fadingedgelayout:fadingedgelayout:$fadingedgelayout",
+            appCompact           : "androidx.appcompat:appcompat:$appCompactVersion",
+            constraintlayout     : "androidx.constraintlayout:constraintlayout:$constrainVersion",
+            cardView             : "androidx.cardview:cardview:$cardViewVersion",
+            recyclerView         : "androidx.recyclerview:recyclerview:$recyclerViewVersion",
+            materialDesign       : "com.google.android.material:material:$materialDesign",
+            picasso              : "com.squareup.picasso:picasso:$picasso",
+            fadingedgelayout     : "com.github.bosphere.android-fadingedgelayout:fadingedgelayout:$fadingedgelayout",
 
-            viewModel             : "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycleVersion",
-            lifeCycle             : "android.arch.lifecycle:extensions:$AndroidArchVersion",
+            viewModel            : "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycleVersion",
+            lifeCycle            : "android.arch.lifecycle:extensions:$AndroidArchVersion",
 
-            dataBinding           : "com.android.databinding:compiler:$databindingVersion",
+            dataBinding          : "com.android.databinding:compiler:$databindingVersion",
 
-            ktx                   : "androidx.core:core-ktx:$ktxVersion",
+            ktx                  : "androidx.core:core-ktx:$ktxVersion",
 
-            rxJava                : "io.reactivex.rxjava2:rxjava:$rxJavaVersion",
-            rxKotlin              : "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion",
-            rxAndroid             : "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
+            rxJava               : "io.reactivex.rxjava2:rxjava:$rxJavaVersion",
+            rxKotlin             : "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion",
+            rxAndroid            : "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
 
-            koin                  : "org.koin:koin-android:$koinVersion",
-            koinViewModel         : "org.koin:koin-androidx-viewmodel:$koinVersion",
+            retrofit             : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            retrofitRxAdapter    : "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
+            retrofitGsonConverter: "com.squareup.retrofit2:converter-gson:$retrofitVersion",
+            gson                 : "com.google.code.gson:gson:$gsonVersion",
 
-            retrofit              : "com.squareup.retrofit2:retrofit:$retrofitVersion",
-            retrofitRxAdapter     : "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
-            retrofitGsonConverter : "com.squareup.retrofit2:converter-gson:$retrofitVersion",
-            gson                  : "com.google.code.gson:gson:$gsonVersion",
+            anko                 : "org.jetbrains.anko:anko-commons:$anko_version",
 
-            anko                  : "org.jetbrains.anko:anko-commons:$anko_version",
-
+            //HILT
+            hiltAndroid          : "com.google.dagger:hilt-android:$hilt_version",
+            hiltCompiler         : "com.google.dagger:hilt-android-compiler:$hilt_version"
     ]
 
     testDependecies = [
-            junit                 : "junit:junit:$junitVersion",
-            espresso              : "androidx.test.espresso:espresso-core:$espressoVersion",
-            runner                : "androidx.test:runner:$runnerVersion",
-            testing                : "org.testng:testng:$testing"
+            junit   : "junit:junit:$junitVersion",
+            espresso: "androidx.test.espresso:espresso-core:$espressoVersion",
+            runner  : "androidx.test:runner:$runnerVersion",
+            testing : "org.testng:testng:$testing"
     ]
 }

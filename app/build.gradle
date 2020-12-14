@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 
 android {
@@ -26,6 +26,7 @@ android {
 
     buildFeatures{
         dataBinding = true
+        viewBinding = true
     }
 
     compileOptions {
@@ -63,12 +64,22 @@ dependencies {
     implementation dependencies.ktx
     implementation dependencies.viewModel
     implementation dependencies.lifeCycle
-    implementation dependencies.koin
-    implementation dependencies.koinViewModel
 
     implementation dependencies.rxJava
     implementation dependencies.rxKotlin
     implementation dependencies.rxAndroid
+
+    implementation dependencies.retrofit
+
+    implementation dependencies.hiltAndroid
+    kapt dependencies.hiltCompiler
+
+    def hilt_viewmodels = "1.0.0-alpha02"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_viewmodels"
+    kapt "androidx.hilt:hilt-compiler:1.0.0-alpha02"
+
+    def fragment_ktx = "1.2.5"
+    implementation "androidx.fragment:fragment-ktx:$fragment_ktx"
 
     implementation dependencies.anko
 

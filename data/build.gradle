@@ -23,16 +23,19 @@ dependencies {
     def dependencies = rootProject.ext.dependencies
     def testDependencies = rootProject.ext.testDependecies
 
-    implementation project(":domain")
+    implementation project(path: ':domain')
 
     implementation dependencies.kotlin
     implementation dependencies.rxJava
+    implementation dependencies.rxAndroid
 
     implementation dependencies.retrofit
     implementation dependencies.retrofitRxAdapter
     implementation dependencies.retrofitGsonConverter
     implementation dependencies.gson
 
-    implementation dependencies.koin
+    implementation dependencies.hiltAndroid
+    kapt dependencies.hiltCompiler
+
     testImplementation  testDependencies.testing
 }
