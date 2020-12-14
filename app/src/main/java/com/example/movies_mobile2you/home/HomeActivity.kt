@@ -16,9 +16,9 @@ import org.jetbrains.anko.contentView
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
 
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: HomeViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
 
     @Inject

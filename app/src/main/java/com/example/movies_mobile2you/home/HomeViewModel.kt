@@ -8,7 +8,7 @@ import com.example.movies_mobile2you.viewmodel.BaseViewModel
 import io.reactivex.Scheduler
 import io.reactivex.rxkotlin.plusAssign
 
-class MainViewModel @ViewModelInject constructor(
+class HomeViewModel @ViewModelInject constructor(
     private val useCase: GetMovieUseCase,
     @UIScheduler val uiScheduler: Scheduler
 ) : BaseViewModel<HomeIntent, HomeState>() {

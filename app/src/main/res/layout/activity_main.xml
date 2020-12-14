@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.movies_mobile2you.home.MainViewModel" />
+            type="com.example.movies_mobile2you.home.HomeViewModel" />
 
         <variable
             name="movie"
