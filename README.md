@@ -1,5 +1,6 @@
 ## Resumo/Overview
 Este projeto tem o intuito de listar os detalhes referente a um específico Filme: Enola Holmes, e abaixo uma lista de filmes similares relacionado ao filme principal.
+Para obter a architecture MVI e Injeção de dependencia HILT, dar checkout na branch mvi_pattern
 
 ## API
 A api utilizada para consumo é TheMovieDB : (https://developers.themoviedb.org/3)
