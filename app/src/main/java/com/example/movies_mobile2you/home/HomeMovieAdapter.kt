@@ -22,6 +22,8 @@ class HomeMovieAdapter @Inject constructor() : RecyclerView.Adapter<HomeMovieAda
             notifyDataSetChanged()
         }
 
+    var onClick: ((Movie) -> Unit)? = null
+
     private fun setItems(movies: MutableList<Movie>): MutableList<Movie> {
         movies.forEach { movie ->
             val genresLinked =
@@ -45,6 +47,9 @@ class HomeMovieAdapter @Inject constructor() : RecyclerView.Adapter<HomeMovieAda
             binding.textAgeMovie.text = movie.release_date?.split("-")?.get(0) ?: ""
             binding.textGenres.text = movie.genre_names?.joinToString(", ")
 
+            binding.cardMovieAdapter.setOnClickListener {
+                onClick?.invoke(movies[adapterPosition])
+            }
         }
     }
 

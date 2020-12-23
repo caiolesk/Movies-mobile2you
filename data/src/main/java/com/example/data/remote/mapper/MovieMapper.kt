@@ -12,6 +12,7 @@ object MovieMapper {
         id = payload.id,
         title = payload.title,
         original_title = payload.original_title,
+        overview = payload.overview,
         popularity = payload.popularity,
         backdrop_path = payload.backdrop_path,
         poster_path = payload.poster_path,

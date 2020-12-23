@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="movie"
+            type="com.example.domain.entities.Movie" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/layoutDetail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.bosphere.fadingedgelayout.FadingEdgeLayout
+            android:id="@+id/fading_layout_image"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            app:fel_edge="bottom">
+
+            <ImageView
+                android:id="@+id/imageMovieDetail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/ic_launcher"
+                app:imageUrl="@{@string/concatenate(@string/url_base_image_backdrop, movie.poster_path)}"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.5" />
+
+        </com.bosphere.fadingedgelayout.FadingEdgeLayout>
+
+        <TextView
+            android:id="@+id/textDetailTitleMovie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fading_layout_image"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:text="@{movie.title}"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:text="Title movie" />
+
+        <TextView
+            android:id="@+id/textOverviewMovie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textDetailTitleMovie"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:text="@{movie.overview}"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="Title movie" />
+
+    </RelativeLayout>
+
+</layout>

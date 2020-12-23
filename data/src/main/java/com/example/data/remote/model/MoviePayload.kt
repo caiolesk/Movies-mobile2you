@@ -10,6 +10,7 @@ class MoviePayload(
     @SerializedName("id") var id: Int?,
     @SerializedName("title") var title: String?,
     @SerializedName("original_title") var original_title: String?,
+    @SerializedName("overview") var overview: String?,
     @SerializedName("popularity")var popularity: Number?,
     @SerializedName("backdrop_path")var backdrop_path: String?,
     @SerializedName("poster_path")var poster_path: String?,

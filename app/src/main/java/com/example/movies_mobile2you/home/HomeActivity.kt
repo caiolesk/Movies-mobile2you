@@ -39,6 +39,10 @@ class HomeActivity : AppCompatActivity() {
     private fun setupRecyclerView() = with(binding.recyclerViewMoviesSimilar) {
         layoutManager = LinearLayoutManager(context)
         adapter = homeMovieAdapter
+
+        homeMovieAdapter.onClick = {
+            viewModel.handle(HomeIntent.OpenDetail(it))
+        }
     }
 
     private fun setupViewModel() {

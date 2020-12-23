@@ -3,6 +3,7 @@ package com.example.movies_mobile2you.home
 import androidx.hilt.lifecycle.ViewModelInject
 import com.example.domain.di.UIScheduler
 import com.example.domain.entities.Genres
+import com.example.domain.entities.Movie
 import com.example.domain.usecases.GetMovieUseCase
 import com.example.movies_mobile2you.viewmodel.BaseViewModel
 import io.reactivex.Scheduler
@@ -10,7 +11,8 @@ import io.reactivex.rxkotlin.plusAssign
 
 class HomeViewModel @ViewModelInject constructor(
     private val useCase: GetMovieUseCase,
-    @UIScheduler val uiScheduler: Scheduler
+    @UIScheduler val uiScheduler: Scheduler,
+    private val router: HomeRouter
 ) : BaseViewModel<HomeIntent, HomeState>() {
 
     lateinit var genres: MutableList<Genres>
@@ -18,6 +20,7 @@ class HomeViewModel @ViewModelInject constructor(
     override fun handle(intent: HomeIntent) {
         when (intent) {
             is HomeIntent.StartData -> fetchGenresList()
+            is HomeIntent.OpenDetail -> handleRouteDetail(intent.movie)
         }
     }
 
@@ -63,6 +66,9 @@ class HomeViewModel @ViewModelInject constructor(
             )
     }
 
+    private fun handleRouteDetail(movie: Movie) {
+        router.routeToDetail(movie)
+    }
 
     companion object {
         private const val movieId = 497582
