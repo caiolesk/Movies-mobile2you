@@ -25,12 +25,7 @@ class HomeMovieAdapter @Inject constructor() : RecyclerView.Adapter<HomeMovieAda
     var onClick: ((Movie) -> Unit)? = null
 
     private fun setItems(movies: MutableList<Movie>): MutableList<Movie> {
-        movies.forEach { movie ->
-            val genresLinked =
-                genres.filter { m -> movie.genre_ids?.any { it == m.id }!! }.map { c -> c.name }
-            movie.genre_names = genresLinked
-        }
-
+        movies.map { it.genre_names = genres.filter { genres -> it.genre_ids?.contains(genres.id) == true }.map { it.name }  }
         return movies
     }
 
