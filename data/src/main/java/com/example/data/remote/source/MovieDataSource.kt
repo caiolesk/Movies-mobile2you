@@ -8,7 +8,10 @@ interface MovieDataSource {
 
     fun fetchMovieDetails(movieId: Int): Observable<Movie>
 
-    fun fetchMoviesSimilar(movieId: Int): Observable<List<Movie>>
+    fun fetchMoviesSimilar(
+        movieId: Int,
+        page: Int
+    ): Observable<List<Movie>>
 
     fun fetchGenresList(): Observable<List<Genres>>
 }

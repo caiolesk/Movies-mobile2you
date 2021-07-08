@@ -17,9 +17,14 @@ class MovieDataSourceImpl @Inject constructor(
             .map { MovieMapper.map(it) }
     }
 
-    override fun fetchMoviesSimilar(movieId: Int): Observable<List<Movie>> {
-        return movieApi.fetchMoviesSimilar(movieId)
-            .map { MovieMapper.map(it) }
+    override fun fetchMoviesSimilar(
+        movieId: Int,
+        page: Int
+    ): Observable<List<Movie>> {
+        return movieApi.fetchMoviesSimilar(
+            movieId = movieId,
+            page = page
+        ).map { MovieMapper.map(it) }
     }
 
     override fun fetchGenresList(): Observable<List<Genres>> {

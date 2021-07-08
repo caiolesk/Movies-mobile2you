@@ -18,11 +18,16 @@ class MovieRepositoryImpl @Inject constructor(
             }
     }
 
-    override fun fetchMoviesSimilar(movieId: Int): Observable<List<Movie>> {
-        return remoteDataSource.fetchMoviesSimilar(movieId)
-            .flatMap { listFav ->
-                Observable.just(listFav)
-            }
+    override fun fetchMoviesSimilar(
+        movieId: Int,
+        page: Int
+    ): Observable<List<Movie>> {
+        return remoteDataSource.fetchMoviesSimilar(
+            movieId = movieId,
+            page = page
+        ).flatMap { listFav ->
+            Observable.just(listFav)
+        }
     }
 
     override fun fetchGenresList(): Observable<List<Genres>> {

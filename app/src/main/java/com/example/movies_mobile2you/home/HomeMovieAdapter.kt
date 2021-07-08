@@ -25,7 +25,11 @@ class HomeMovieAdapter @Inject constructor() : RecyclerView.Adapter<HomeMovieAda
     var onClick: ((Movie) -> Unit)? = null
 
     private fun setItems(movies: MutableList<Movie>): MutableList<Movie> {
-        movies.map { it.genre_names = genres.filter { genres -> it.genre_ids?.contains(genres.id) == true }.map { it.name }  }
+        movies.map {
+            it.genre_names = genres.filter { genres ->
+                it.genre_ids?.contains(genres.id) == true
+            }.map { it.name }
+        }
         return movies
     }
 
@@ -36,14 +40,14 @@ class HomeMovieAdapter @Inject constructor() : RecyclerView.Adapter<HomeMovieAda
             val urlBase = resources.getString(R.string.url_base_image_similar)
 
             Picasso.get()
-                .load(urlBase + movie.poster_path)
+                .load(urlBase.plus(movie.poster_path))
                 .into(binding.imageMovieSimilar)
             binding.textTitleMovieSimilar.text = movie.title
-            binding.textAgeMovie.text = movie.release_date?.split("-")?.get(0) ?: ""
-            binding.textGenres.text = movie.genre_names?.joinToString(", ")
+            binding.textAgeMovie.text = movie.release_date?.split(DELIMITER_DATE)?.get(0) ?: ""
+            binding.textGenres.text = movie.genre_names?.joinToString(SEPARATOR_GENRES)
 
             binding.cardMovieAdapter.setOnClickListener {
-                onClick?.invoke(movies[adapterPosition])
+                onClick?.invoke(movie)
             }
         }
     }
@@ -60,4 +64,8 @@ class HomeMovieAdapter @Inject constructor() : RecyclerView.Adapter<HomeMovieAda
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(movies[position])
 
+    private companion object {
+        const val SEPARATOR_GENRES = ", "
+        const val DELIMITER_DATE = "-"
+    }
 }

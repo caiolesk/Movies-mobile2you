@@ -15,11 +15,18 @@ interface MovieApi {
     }
 
     @GET("movie/{movie_id}")
-    fun fetchMovieDetails(@Path("movie_id") movieId: Int, @Query("api_key") apiKey: String = API_KEY ): Observable<MoviePayload>
+    fun fetchMovieDetails(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String = API_KEY
+    ): Observable<MoviePayload>
 
     @GET("movie/{movie_id}/similar")
-    fun fetchMoviesSimilar(@Path("movie_id") movieId: Int, @Query("api_key") apiKey: String = API_KEY ): Observable<MoviesPayload>
+    fun fetchMoviesSimilar(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String = API_KEY,
+        @Query("page") page: Int
+    ): Observable<MoviesPayload>
 
     @GET("genre/movie/list")
-    fun fetchGenresList(@Query("api_key") apiKey: String = API_KEY ): Observable<GenresListPayload>
+    fun fetchGenresList(@Query("api_key") apiKey: String = API_KEY): Observable<GenresListPayload>
 }

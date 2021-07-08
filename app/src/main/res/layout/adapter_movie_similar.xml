@@ -35,7 +35,6 @@
                 android:id="@+id/textTitleMovieSimilar"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/imageMovie"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="50dp"
                 android:layout_marginBottom="5dp"
@@ -56,7 +55,6 @@
                 android:layout_marginBottom="5dp"
                 android:textColor="@android:color/white"
                 tools:text="1999"
-                android:text="1999"
                 android:layout_toEndOf="@+id/imageMovieSimilar"
                 />
 
@@ -70,7 +68,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginEnd="30dp"
                 android:textColor="@android:color/white"
-                android:text="Genres"
+                tools:text="Genres"
                 android:layout_toEndOf="@+id/textAgeMovie"
                 />
 
@@ -91,7 +89,7 @@
                 android:layout_marginStart="100dp"
                 android:layout_marginEnd="10dp"
                 android:background="#aaa"
-                android:layout_below="@+id/imageMovieSimilar"
+                android:layout_below="@+id/textGenres"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"/>
 

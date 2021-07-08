@@ -17,9 +17,14 @@ class GetMovieUseCase @Inject constructor(
             .subscribeOn(scheduler)
     }
 
-    fun fetchMoviesSimilar(movieId: Int): Observable<List<Movie>> {
-        return repository.fetchMoviesSimilar(movieId)
-            .subscribeOn(scheduler)
+    fun fetchMoviesSimilar(
+        movieId: Int,
+        page: Int
+    ): Observable<List<Movie>> {
+        return repository.fetchMoviesSimilar(
+            movieId = movieId,
+            page = page
+        ).subscribeOn(scheduler)
     }
 
     fun fetchGenresList(): Observable<List<Genres>> {
