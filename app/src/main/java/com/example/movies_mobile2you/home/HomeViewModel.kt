@@ -50,7 +50,6 @@ class HomeViewModel @Inject constructor(
     private fun fetchMoviesSimilar(
         page: Int
     ) {
-        _state.value = HomeState.Loading(true)
         compositeDisposable += useCase.fetchMoviesSimilar(
             movieId = movieId,
             page = page
@@ -70,7 +69,6 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun fetchGenresList() {
-        _state.value = HomeState.Loading(true)
         compositeDisposable += useCase.fetchGenresList()
             .observeOn(uiScheduler)
             .subscribe(

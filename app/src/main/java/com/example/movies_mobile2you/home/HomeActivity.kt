@@ -4,10 +4,12 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.domain.entities.Genres
 import com.example.domain.entities.Movie
 import com.example.movies_mobile2you.R
+import com.example.movies_mobile2you.adapter.LoadState
 import com.example.movies_mobile2you.databinding.ActivityMainBinding
 import com.example.movies_mobile2you.extension.setupScroll
 import com.example.movies_mobile2you.extension.visible
@@ -24,6 +26,8 @@ class HomeActivity : AppCompatActivity() {
 
     @Inject
     lateinit var homeMovieAdapter: HomeMovieAdapter
+    @Inject
+    lateinit var loadStateAdapter: LoadStateAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,21 +42,27 @@ class HomeActivity : AppCompatActivity() {
     private fun setupRecyclerView() = with(binding.recyclerViewMoviesSimilar) {
         val layoutManager = LinearLayoutManager(context)
         this.layoutManager = layoutManager
-        adapter = homeMovieAdapter
+        adapter = ConcatAdapter(
+            homeMovieAdapter,
+            loadStateAdapter
+        )
         homeMovieAdapter.onClick = {
             viewModel.handle(HomeIntent.OpenDetail(it))
         }
         this.setupScroll(layoutManager) {
-            viewModel.handle(HomeIntent.NewPage)
+            loadStateAdapter.loadState = LoadState.Loading
+            postDelayed(
+                {
+                    viewModel.handle(HomeIntent.NewPage)
+                },
+                2000
+            )
         }
     }
 
     private fun setupViewModel() {
         viewModel.state.observe(this, { state ->
             when (state) {
-                is HomeState.Loading -> {
-                    setVisibilities(progressBar = state.loading)
-                }
                 is HomeState.SuccessDetail -> {
                     bindMovie(state.movie)
                 }
@@ -64,23 +74,6 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         })
-
-        viewModel.state.observe(this) { state ->
-            when (state) {
-                is HomeState.Loading -> {
-                    setVisibilities(progressBar = state.loading)
-                }
-                is HomeState.SuccessDetail -> {
-                    bindMovie(state.movie)
-                }
-                is HomeState.SuccessSimilarMovies -> {
-                    bindSimilarMovies(state.similarMovies, state.genres)
-                }
-                is HomeState.Error -> {
-                    retrySnackBar()
-                }
-            }
-        }
     }
 
     private fun bindMovie(movie: Movie) {
@@ -90,8 +83,7 @@ class HomeActivity : AppCompatActivity() {
             txtLike = true,
             imgStar = true,
             txtPopularity = true,
-            chkLike = true,
-            progressBar = false
+            chkLike = true
         )
     }
 
@@ -103,8 +95,7 @@ class HomeActivity : AppCompatActivity() {
             txtLike = true,
             imgStar = true,
             txtPopularity = true,
-            chkLike = true,
-            progressBar = false
+            chkLike = true
         )
     }
 
@@ -125,8 +116,7 @@ class HomeActivity : AppCompatActivity() {
         txtLike: Boolean = false,
         imgStar: Boolean = false,
         txtPopularity: Boolean = false,
-        chkLike: Boolean = false,
-        progressBar: Boolean = false
+        chkLike: Boolean = false
     ) {
         binding.imageHeart.visible(imgHeart)
         binding.textLikes.visible(txtLike)
@@ -134,7 +124,6 @@ class HomeActivity : AppCompatActivity() {
         binding.textPopularity.visible(txtPopularity)
         binding.likeIcon.visible(chkLike)
         binding.likeIcon.visible(chkLike)
-        binding.progressHome.visible(progressBar)
     }
 
 }
