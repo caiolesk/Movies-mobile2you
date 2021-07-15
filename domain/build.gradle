@@ -6,8 +6,7 @@ dependencies {
 
     def dependencies = rootProject.ext.dependencies
 
-    implementation dependencies.kotlin
-    implementation dependencies.rxJava
+    implementation dependencies.coroutines
 
     implementation dependencies.hiltAndroid
 }

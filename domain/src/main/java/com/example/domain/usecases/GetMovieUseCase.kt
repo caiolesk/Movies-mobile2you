@@ -1,34 +1,29 @@
 package com.example.domain.usecases
 
-import com.example.domain.di.IOScheduler
 import com.example.domain.entities.Genres
 import com.example.domain.entities.Movie
 import com.example.domain.repository.MovieRepository
-import io.reactivex.Observable
-import io.reactivex.Scheduler
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetMovieUseCase @Inject constructor(
-    private val repository: MovieRepository,
-    @IOScheduler private val scheduler: Scheduler
+    private val repository: MovieRepository
 ) {
-    fun fetchMovieDetails(movieId: Int): Observable<Movie> {
+    fun fetchMovieDetails(movieId: Int): Flow<Movie> {
         return repository.fetchMovieDetails(movieId)
-            .subscribeOn(scheduler)
     }
 
     fun fetchMoviesSimilar(
         movieId: Int,
         page: Int
-    ): Observable<List<Movie>> {
+    ): Flow<List<Movie>> {
         return repository.fetchMoviesSimilar(
             movieId = movieId,
             page = page
-        ).subscribeOn(scheduler)
+        )
     }
 
-    fun fetchGenresList(): Observable<List<Genres>> {
+    fun fetchGenresList(): Flow<List<Genres>> {
         return repository.fetchGenresList()
-            .subscribeOn(scheduler)
     }
 }

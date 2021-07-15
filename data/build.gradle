@@ -25,13 +25,12 @@ dependencies {
 
     implementation project(path: ':domain')
 
-    implementation dependencies.kotlin
-    implementation dependencies.rxJava
-    implementation dependencies.rxAndroid
+    implementation dependencies.coroutines
 
     implementation dependencies.retrofit
     implementation dependencies.retrofitRxAdapter
     implementation dependencies.retrofitGsonConverter
+    implementation dependencies.interceptorLoggin
     implementation dependencies.gson
 
     implementation dependencies.hiltAndroid

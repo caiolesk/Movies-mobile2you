@@ -4,6 +4,9 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.domain.entities.Genres
@@ -15,8 +18,12 @@ import com.example.movies_mobile2you.extension.setupScroll
 import com.example.movies_mobile2you.extension.visible
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.jetbrains.anko.contentView
 import javax.inject.Inject
+import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
@@ -26,6 +33,7 @@ class HomeActivity : AppCompatActivity() {
 
     @Inject
     lateinit var homeMovieAdapter: HomeMovieAdapter
+
     @Inject
     lateinit var loadStateAdapter: LoadStateAdapter
 
@@ -51,29 +59,31 @@ class HomeActivity : AppCompatActivity() {
         }
         this.setupScroll(layoutManager) {
             loadStateAdapter.loadState = LoadState.Loading
-            postDelayed(
-                {
-                    viewModel.handle(HomeIntent.NewPage)
-                },
-                2000
-            )
+            lifecycleScope.launch {
+                delay(2000)
+                viewModel.handle(HomeIntent.NewPage)
+            }
         }
     }
 
     private fun setupViewModel() {
-        viewModel.state.observe(this, { state ->
-            when (state) {
-                is HomeState.SuccessDetail -> {
-                    bindMovie(state.movie)
-                }
-                is HomeState.SuccessSimilarMovies -> {
-                    bindSimilarMovies(state.similarMovies, state.genres)
-                }
-                is HomeState.Error -> {
-                    retrySnackBar()
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.state.collect { state ->
+                    when (state) {
+                        is HomeState.SuccessDetail -> {
+                            bindMovie(state.movie)
+                        }
+                        is HomeState.SuccessSimilarMovies -> {
+                            bindSimilarMovies(state.similarMovies, state.genres)
+                        }
+                        is HomeState.Error -> {
+                            retrySnackBar()
+                        }
+                    }
                 }
             }
-        })
+        }
     }
 
     private fun bindMovie(movie: Movie) {

@@ -1,19 +1,21 @@
 package com.example.movies_mobile2you.home
 
-import com.example.domain.di.UIScheduler
+import androidx.lifecycle.viewModelScope
 import com.example.domain.entities.Genres
 import com.example.domain.entities.Movie
 import com.example.domain.usecases.GetMovieUseCase
+import com.example.movies_mobile2you.extension.onCollect
 import com.example.movies_mobile2you.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.Scheduler
-import io.reactivex.rxkotlin.plusAssign
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val useCase: GetMovieUseCase,
-    @UIScheduler val uiScheduler: Scheduler,
     private val router: HomeRouter
 ) : BaseViewModel<HomeIntent, HomeState>() {
 
@@ -35,52 +37,54 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun fetchMovieDetails() {
-        compositeDisposable += useCase.fetchMovieDetails(movieId)
-            .observeOn(uiScheduler)
-            .subscribe(
-                {
+        viewModelScope.launch(Dispatchers.IO) {
+            useCase.fetchMovieDetails(movieId).onCollect(
+                onSuccess = {
                     _state.value = HomeState.SuccessDetail(it)
                 },
-                {
+                onError = {
                     _state.value = HomeState.Error
                 }
             )
+        }
     }
 
     private fun fetchMoviesSimilar(
         page: Int
     ) {
-        compositeDisposable += useCase.fetchMoviesSimilar(
-            movieId = movieId,
-            page = page
-        ).observeOn(uiScheduler)
-            .subscribe(
-                {
+        viewModelScope.launch(Dispatchers.IO) {
+            useCase.fetchMoviesSimilar(
+                movieId = movieId,
+                page = page
+            ).onCollect(
+                onSuccess = {
                     setPage(page)
                     updateItems(
                         page = page,
                         items = it
                     )
                 },
-                {
+                onError = {
                     _state.value = HomeState.Error
                 }
             )
+        }
     }
 
     private fun fetchGenresList() {
-        compositeDisposable += useCase.fetchGenresList()
-            .observeOn(uiScheduler)
-            .subscribe(
-                {
-                    genres = it.toMutableList()
-                    fetchMovieDetails()
-                    fetchMoviesSimilar(FIRST_PAGE)
-                },
-                {
-                    _state.value = HomeState.Error
-                }
-            )
+        viewModelScope.launch(Dispatchers.IO) {
+            useCase.fetchGenresList()
+                .onCollect(
+                    onSuccess = {
+                        genres = it.toMutableList()
+                        fetchMovieDetails()
+                        fetchMoviesSimilar(FIRST_PAGE)
+                    },
+                    onError = {
+                        _state.value = HomeState.Error
+                    }
+                )
+        }
     }
 
     private fun handleRouteDetail(movie: Movie) {

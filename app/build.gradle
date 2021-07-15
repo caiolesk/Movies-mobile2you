@@ -63,11 +63,10 @@ dependencies {
     implementation dependencies.ktx
     implementation dependencies.viewModel
     implementation dependencies.lifeCycle
+    implementation dependencies.lifecycleRuntime
     implementation dependencies.fragmentKtx
 
-    implementation dependencies.rxJava
-    implementation dependencies.rxKotlin
-    implementation dependencies.rxAndroid
+    implementation dependencies.coroutines
 
     implementation dependencies.retrofit
 

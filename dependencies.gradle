@@ -13,7 +13,8 @@ ext {
     AndroidArchVersion = '2.2.0'
     databindingVersion = '3.1.4'
     lifeCycleVersion = '2.2.0'
-    ktxVersion = '1.3.1'
+    lifeCycleRuntimeVersion = '2.4.0-alpha02'
+    ktxVersion = '1.6.0'
 
     constrainVersion = '1.1.3'
     cardViewVersion = '1.0.0'
@@ -23,9 +24,8 @@ ext {
     fadingedgelayout = '1.0.0'
 
     //Rx
-    rxJavaVersion = '2.2.19'
-    rxKotlinVersion = '2.4.0'
-    rxAndroidVersion = '2.1.1'
+    coroutinesVersion = '1.4.3'
+    interceptorLoggingVersion = '4.2.1'
 
     //Retrofit
     retrofitVersion = '2.9.0'
@@ -60,14 +60,14 @@ ext {
             viewModel            : "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycleVersion",
             lifeCycle            : "android.arch.lifecycle:extensions:$AndroidArchVersion",
             fragmentKtx          : "androidx.fragment:fragment-ktx:$fragmentKtx",
+            lifecycleRuntime     : "androidx.lifecycle:lifecycle-runtime-ktx:$lifeCycleRuntimeVersion",
 
             dataBinding          : "com.android.databinding:compiler:$databindingVersion",
 
             ktx                  : "androidx.core:core-ktx:$ktxVersion",
 
-            rxJava               : "io.reactivex.rxjava2:rxjava:$rxJavaVersion",
-            rxKotlin             : "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion",
-            rxAndroid            : "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
+            coroutines           : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion",
+            interceptorLoggin   : "com.squareup.okhttp3:logging-interceptor:$interceptorLoggingVersion",
 
             retrofit             : "com.squareup.retrofit2:retrofit:$retrofitVersion",
             retrofitRxAdapter    : "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
